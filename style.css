@@ -57,9 +57,9 @@ body{
 @media(max-width:420px){
   /* On phones show the full iOS-style wallpaper so the full image is visible */
   .macos-26-light{
-    background: linear-gradient(rgba(0,0,0,0.08), rgba(0,0,0,0.08)), url("iOS26HomeScreen-Dark.jpg") center top/contain no-repeat scroll;
+    background: linear-gradient(rgba(0,0,0,0.08), rgba(0,0,0,0.08)), url("iOS26HomeScreen-Dark.jpg") 
     background-blend-mode: normal;
-    background-position: center top;
+    
   }
 }
 /* ── AMBIENT MESH BACKGROUND — flowing macOS 26 style wallpaper ── */
