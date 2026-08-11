@@ -8,7 +8,8 @@ html{scroll-behavior:smooth;font-size:16px;}
   --glass-border-soft: rgba(255,255,255,0.14);
   --glass-shadow: 0 12px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -1px 0 rgba(255,255,255,0.05);
 
-  --mesh-4:#00C2B5;
+  
+  --mesh-6:#FFB86B;
   --gold:#E3B24E;
   --gold-soft: rgba(227,178,78,0.85);
   --text-hi:#F6F7FB;
@@ -34,7 +35,25 @@ body{
   position:relative;
 }
 .macos-26-light {
-  background: url("darkwallpaper.jpg") center/cover no-repeat fixed;
+  background:
+    linear-gradient(rgba(0,0,0,0.08), rgba(0,0,0,0.08)),
+    url("darkwallpaper.jpg") center/cover no-repeat fixed;
+  background-blend-mode: overlay;
+}
+@media(max-width:820px){
+  .macos-26-light {
+    /* On tablets and small laptops keep cover behavior */
+    background: url("darkwallpaper.jpg") center top/cover no-repeat scroll;
+    background-blend-mode: normal;
+  }
+}
+@media(max-width:420px){
+  /* On phones show the full wallpaper (contain) so the full image is visible */
+  .macos-26-light{
+    background: linear-gradient(rgba(0,0,0,0.08), rgba(0,0,0,0.08)), url("darkwallpaper.jpg") center top/contain no-repeat scroll;
+    background-blend-mode: normal;
+    background-position: center top;
+  }
 }
 /* ── AMBIENT MESH BACKGROUND — flowing macOS 26 style wallpaper ── */
 .mesh{
