@@ -248,11 +248,13 @@
 </div>
 
 <script>
-// NAV scroll effect
+// NAV scroll effect (guard for missing nav element)
 const nav = document.getElementById("nav");
-window.addEventListener("scroll", () => {
-  nav.classList.toggle("scrolled", window.scrollY > 60);
-});
+if (nav) {
+  window.addEventListener("scroll", () => {
+    nav.classList.toggle("scrolled", window.scrollY > 60);
+  });
+}
 
 // Scroll reveal
 const io = new IntersectionObserver((entries) => {
