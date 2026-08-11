@@ -8,9 +8,81 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+Khmer:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+  .wallpaper-switcher {
+    position: fixed;
+    top: 24px;
+    right: 28px;
+    z-index: 999;
+    display: flex;
+    gap: 8px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background: var(--glass-fill-strong);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--r-pill);
+    padding: 10px 14px;
+    animation: slideIn 0.4s ease;
+  }
+  
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .wallpaper-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(227,178,78,0.2);
+    color: var(--text-lo);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+  }
+  
+  .wallpaper-btn:hover {
+    background: rgba(227,178,78,0.35);
+    color: var(--text-hi);
+  }
+  
+  .wallpaper-btn.active {
+    border-color: var(--gold);
+    background: rgba(227,178,78,0.4);
+    color: var(--gold);
+    box-shadow: 0 0 10px rgba(227,178,78,0.5);
+  }
+  
+  @media(max-width:720px) {
+    .wallpaper-switcher {
+      top: 100px;
+      right: 16px;
+      left: auto;
+      padding: 8px 10px;
+      gap: 6px;
+    }
+    
+    .wallpaper-btn {
+      width: 28px;
+      height: 28px;
+      font-size: 12px;
+    }
+  }
+</style>
 </head>
 <body class="macos-26-light">
 
+<!-- WALLPAPER SWITCHER -->
+<div class="wallpaper-switcher">
+  <button class="wallpaper-btn active" data-wallpaper="dark" title="Dark Wallpaper">🌙</button>
+  <button class="wallpaper-btn" data-wallpaper="ios" title="iOS Wallpaper">📱</button>
+  <button class="wallpaper-btn" data-wallpaper="mesh" title="Mesh Only">✨</button>
+</div>
 
 <div class="mesh"><span class="b1"></span><span class="b2"></span><span class="b3"></span><span class="b4"></span><span class="b5"></span><span class="b6"></span></div>
 <div class="grain"></div>
@@ -57,7 +129,9 @@
     <h2 class="section-title reveal">Who I Am</h2>
     <div class="about-layout">
       <div class="about-text reveal-left">
-        <p>I am a student at Kampot Krong Cambodian Japanese Friendship High School (វិទ្យាល័យមិត្តភាពកម្ពុជា-ជប៉ុនកំពតក្រុង). Passionate about learning and growing both academically and personally.</p>
+        <p>I am a student at Kampot Krong Cambodian Japanese Friendship High School (វិទ្យាល័យមិត្តភាពកម្ពុជា-ជប៉ុនកំពតក្រុង). I have completed 9 years of study in this institution, and currently in the 12th grade. I have excellent academic achievement throughout my school life, with special interest in science subjects and technology development.</p>
+        <p>My passion for learning drives me to explore various subjects—from traditional Khmer literature and history to modern physics, chemistry, and computer science. I am also engaged in developing web applications and graphic design as part of my interest in the digital world.</p>
+        <p>Beyond academics, I actively participate in school activities and competitions. I have received certificates in English grammar, Chinese language proficiency, and digital media competitions.</p>
       </div>
       <div class="about-stats reveal-right">
         <div class="stat-box glass">
@@ -142,7 +216,7 @@
         <div class="tl-line"></div>
         <div class="tl-content glass">
           <h3>English Grammar Level 4</h3>
-          <p>Successfully completed Grammar Level 4 (Grade: Good) at CANDO School, held from January 2025 to July 2025. Certificate approved by the Director of Kampot Province Department of Education, Youth and Sport.</p>
+          <p>Successfully completed Grammar Level 4 (Grade: Good) at CANDO School, held from January 2025 to July 2025. Certificate approved by the Director of Kampot Province Department of Education.</p>
           <span class="tl-tag">Held: Jan 2025 – Jul 2025<br>Issued for official use, Kampot, Jan 22 2026</span>
         </div>
       </div>
@@ -151,7 +225,7 @@
         <div class="tl-line"></div>
         <div class="tl-content glass">
           <h3>Attended and successfully passed the intermediate Chinese language test</h3>
-          <p style="font-family:'Noto Sans Khmer','Inter',sans-serif;">在本校学完汉语程度：中级汉，成绩：优，从 2025年9月 到 2025年12月，此证交给本人使用。贡布，2026年1月22日。</p>
+          <p style="font-family:'Noto Sans Khmer','Inter',sans-serif;">在本校学完汉语程度：中级汉，成绩：优，从 2025年9月 到 2025年12月，此证交给本人使用。贡布城</p>
           <span class="tl-tag">Sep 2025 – Dec 2025 · Kampot</span>
         </div>
       </div>
@@ -249,6 +323,55 @@
 </div>
 
 <script>
+// WALLPAPER SWITCHER
+const wallpaperSwitcher = {
+  init() {
+    const buttons = document.querySelectorAll('.wallpaper-btn');
+    const savedWallpaper = localStorage.getItem('wallpaper') || 'dark';
+    
+    this.setWallpaper(savedWallpaper);
+    
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const wallpaper = btn.getAttribute('data-wallpaper');
+        this.setWallpaper(wallpaper);
+      });
+    });
+  },
+  
+  setWallpaper(type) {
+    const body = document.body;
+    const buttons = document.querySelectorAll('.wallpaper-btn');
+    
+    // Remove all wallpaper classes
+    body.classList.remove('macos-26-light', 'ios-26-light', 'mesh-only');
+    
+    // Update buttons
+    buttons.forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.getAttribute('data-wallpaper') === type) {
+        btn.classList.add('active');
+      }
+    });
+    
+    // Apply new wallpaper
+    switch(type) {
+      case 'ios':
+        body.classList.add('ios-26-light');
+        break;
+      case 'mesh':
+        body.classList.add('mesh-only');
+        break;
+      default:
+        body.classList.add('macos-26-light');
+    }
+    
+    localStorage.setItem('wallpaper', type);
+  }
+};
+
+wallpaperSwitcher.init();
+
 // NAV scroll effect (guard for missing nav element)
 const nav = document.getElementById("nav");
 if (nav) {
