@@ -7,8 +7,14 @@ html{scroll-behavior:smooth;font-size:16px;}
   --glass-border: rgba(255,255,255,0.30);
   --glass-border-soft: rgba(255,255,255,0.14);
   --glass-shadow: 0 12px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -1px 0 rgba(255,255,255,0.05);
-
   
+  /* Background & mesh colors (ensure wallpaper and mesh render correctly) */
+  --bg-deep:#040414;
+  --mesh-1:#7C5CFF;
+  --mesh-2:#6BCBFF;
+  --mesh-3:#FF7A7A;
+  --mesh-4:#00C2B5;
+  --mesh-5:#8A5AFF;
   --mesh-6:#FFB86B;
   --gold:#E3B24E;
   --gold-soft: rgba(227,178,78,0.85);
@@ -57,7 +63,7 @@ body{
 }
 /* ── AMBIENT MESH BACKGROUND — flowing macOS 26 style wallpaper ── */
 .mesh{
-  position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--bg-deep);
+  position:fixed;inset:0;z-index:-2;overflow:hidden;background:transparent;
 }
 .mesh span{
   position:absolute;border-radius:50%;filter:blur(110px);
